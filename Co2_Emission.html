@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>CO2 Emission</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            text-decoration: none;
+            list-style: none;
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            background-color: #212429;
+            font-family: "Open Sans", sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            font-family: montserrat;
+        }
+        
+        nav {
+            background: #212429;
+            height: 80px;
+            width: 100%;
+        }
+        
+        label.logo {
+            color: white;
+            font-size: 35px;
+            line-height: 80px;
+            padding: 0 100px;
+            font-weight: bold;
+        }
+        
+        nav ul {
+            float: right;
+            margin-right: 20px;
+        }
+        
+        nav ul li {
+            display: inline-block;
+            line-height: 80px;
+            margin: 0 5px;
+        }
+        
+        nav ul li a {
+            color: white;
+            font-size: 17px;
+            padding: 7px 13px;
+            border-radius: 3px;
+            text-transform: uppercase;
+        }
+        
+        a.active,
+        a:hover {
+            background: #212429;
+            transition: .5s;
+        }
+        
+        .checkbtn {
+            font-size: 30px;
+            color: white;
+            float: right;
+            line-height: 80px;
+            margin-right: 40px;
+            cursor: pointer;
+            display: none;
+        }
+        
+        #check {
+            display: none;
+        }
+        
+        @media (max-width: 952px) {
+            label.logo {
+                font-size: 30px;
+                padding-left: 50px;
+            }
+            nav ul li a {
+                font-size: 16px;
+            }
+        }
+        
+        @media (max-width: 858px) {
+            .checkbtn {
+                display: block;
+            }
+            ul {
+                position: fixed;
+                width: 100%;
+                height: 100vh;
+                background: #2c3e50;
+                top: 80px;
+                left: -100%;
+                text-align: center;
+                transition: all .5s;
+            }
+            nav ul li {
+                display: block;
+                margin: 50px 0;
+                line-height: 30px;
+            }
+            nav ul li a {
+                font-size: 20px;
+            }
+            a:hover,
+            a.active {
+                background: none;
+                color: grey;
+            }
+            #check:checked~ul {
+                left: 0;
+            }
+        }
+        
+        .flip-card {
+            margin: 20px;
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .flip-card-front {
+            width: 380px;
+            min-height: 600px;
+            height: auto;
+            background-color: #000000;
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
+            transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+        }
+        
+        .flip-card-back {
+            width: 380px;
+            min-height: 600px;
+            height: auto;
+            background-color: #ffffff;
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
+            transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+        }
+        
+        .flip-card:nth-of-type(2) .flip-card-front,
+        .flip-card:nth-of-type(2) .flip-card-back {
+            background-color: black;
+        }
+        
+        .flip-card:nth-of-type(3) .flip-card-front,
+        .flip-card:nth-of-type(3) .flip-card-back {
+            background-color: black;
+        }
+        
+        .flip-card-front {
+            transform: rotateY(0deg);
+        }
+        
+        .flip-card-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: rotateY(180deg);
+        }
+        
+        .flip-card-front::after,
+        .flip-card-back::after {
+            content: "";
+            width: 100%;
+            height: 100%;
+            background-color: #0a0a0a;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.6;
+        }
+        
+        .flip-card-front .inner,
+        .flip-card-back .inner {
+            width: 100%;
+            padding: 40px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%) translateZ(60px) scale(0.94);
+            z-index: 2;
+        }
+        
+        .inner .icon {
+            width: 80px;
+            margin-bottom: 20px;
+        }
+        
+        .inner h3 {
+            margin-bottom: 8px;
+            color: white;
+            font-size: 30px;
+            font-weight: 700;
+            line-height: 40px;
+            text-transform: capitalize;
+        }
+        
+        .inner p {
+            color: white;
+            font-size: 16px;
+            line-height: 28px;
+        }
+        
+        .flip-card:hover .flip-card-front {
+            transform: rotateY(-180deg);
+        }
+        
+        .flip-card:hover .flip-card-back {
+            transform: rotateY(0deg);
+        }
+        
+        section {
+            background: url(bg1.jpg) no-repeat;
+            background-size: cover;
+            height: calc(100vh - 80px);
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+        <i class="fas fa-bars"></i>
+      </label>
+        <label class="logo">CO2 EMISSION</label>
+        <ul>
+            <li><a class="active" href="home.html" style="text-decoration: none;">Home</a></li>
+            <li><a href="#" style="text-decoration: none;">CO2 Emission</a></li>
+            <li><a href="Contact Us.html" style="text-decoration: none;">Contact Us</a></li>
+            <li><a href="#" style="text-decoration: none;">Log-out</a></li>
+        </ul>
+    </nav>
+
+
+    <section>
+        <div class="flip-card">
+            <div class="flip-card-front" style="background-color: black;">
+                <div class="inner">
+
+                    <h3>CARS CO2 EMISSION</h3>
+
+                </div>
+            </div>
+            <div class="flip-card-back" style="color: white;">
+                <div class="inner">
+                    <img src="car-icon.png" class="icon" />
+
+                    <p>
+                        Car CO2 Emission Content Based On Distance And Fuel
+                    </p>
+                    <button type="button" class="btn btn-success"><a href="car_calcu.html" target="_blank " class="btn btn-success">CAR</a></button>
+
+                </div>
+            </div>
+        </div>
+        <div class="flip-card">
+            <div class="flip-card-front">
+                <div class="inner">
+
+                    <h3>BUS CO2 EMISSION</h3>
+                </div>
+            </div>
+
+            <div class="flip-card-back" style="background-color:white">
+                <div class="inner">
+                    <img src="trolleybus-icon.png" class="icon" />
+                    <p>
+                        Bus CO2 Emission Content Based On Distance And Fuel
+                    </p>
+                    <button type="button" class="btn btn-success"><a href="bus_calc.html" target="_blank " class="btn btn-success">BUS</a></button>
+
+                </div>
+            </div>
+        </div>
+        <div class="flip-card">
+            <div class="flip-card-front">
+                <div class="inner">
+
+                    <h3>BIKE</h3>
+
+                </div>
+            </div>
+            <div class="flip-card-back" style="background-color:white">
+                <div class="inner">
+                    <img src="bike-icon.png" class="icon" />
+
+                    <p>
+                        Bike CO2 Emission Content Based On Distance And Fuel
+                    </p>
+                    <button type="button" class="btn btn-success"><a href="bike_calcu.html" target="_blank " class="btn btn-success">BIKE</a></button>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+</body>
+
+</html>
